@@ -1,0 +1,2 @@
+class Fomula < ApplicationRecord
+end
