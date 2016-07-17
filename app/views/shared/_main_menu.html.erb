@@ -1,0 +1,48 @@
+<% if user_signed_in? %>
+  <div id="master-menu">
+    <a class="dropdown-toggle open-select" data-toggle="dropdown" href="#">
+      <i class="fa fa-bars"></i>
+      <span class="fa fa-caret-down"></span>
+    </a>
+
+    <ul class="dropdown-menu pull-right filters filter-right-arow">
+      <% if current_user.hr? %>
+        <li><%= link_to t("layouts.master_datas"), price_masters_path %></li>
+        <li><%= link_to t("layouts.categories"), categories_path %></li>
+        <li><%= link_to t("layouts.ranks"), ranks_path %></li>
+        <li class="divider"></li>
+        <li><%= link_to t("layouts.periods"), periods_path %></li>
+        <li><%= link_to t("layouts.strong_points"), strong_points_path %></li>
+        <li><%= link_to t("layouts.skills"), skills_path %></li>
+        <li class="divider"></li>
+      <% end %>
+        <% if current_user.hr? %>
+          <li class="dropdown dropdown-submenu">
+            <a href="#" data-toggle="dropdown">
+              <span class="fa fa-caret-left arrow-left"></span>
+              <%= t "menus.admin" %>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to t("layouts.projects"), projects_path(type: Settings.params.projects.admin) %></li>
+              <li><%= link_to t("layouts.import_data"), imports_path %></li>
+              <li><%= link_to t("layouts.synchronizes"), synchronizes_path %></li>
+        <% end %>
+
+          <% if current_user.hr? %>
+                <li><%= link_to t("layouts.clone_assignees"), clone_assignees_path %></li>
+                <li><%= link_to t("layouts.exportCSV"), exports_path %></li>
+              </ul>
+            </li>
+          <% end %>
+    </ul>
+  </div>
+
+  <div id="main-menu">
+    <ul>
+       <% if current_user.admin? %>
+        <li><%= link_to t("manager.managers"), users_path,
+          class: ("selected" if ["users"].include? controller_name) %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

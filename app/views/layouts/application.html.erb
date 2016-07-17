@@ -4,11 +4,23 @@
     <title>Acs</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
   </head>
 
   <body>
-    <%= yield %>
+    <div id="wrapper">
+      <%= render "shared/top" %>
+      <%= render "shared/header" %>
+      <div id="main" class="clearfix">
+        <div id="content">
+          <%= render "shared/flash" %>
+          <%= yield :context_menu %>
+          <div id="<%= controller_name %>">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
