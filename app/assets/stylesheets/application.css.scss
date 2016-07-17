@@ -10,6 +10,31 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require custom
+ *= require font-awesome
+ *= require_tree .
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "mixin";
+
+.project-name {
+  @extend .pull-right;
+  width: 85%;
+}
+
+#user_email {
+  margin-bottom: 10px;
+}
+
+#flash-message {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.form-control {
+  padding: 6px;
+}
