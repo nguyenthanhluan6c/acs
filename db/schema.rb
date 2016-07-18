@@ -23,10 +23,8 @@ ActiveRecord::Schema.define(version: 20160716163101) do
   create_table "allowance_details", force: :cascade do |t|
     t.integer  "level_id"
     t.integer  "employee_id"
-    t.integer  "allowance_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["allowance_id"], name: "index_allowance_details_on_allowance_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["employee_id"], name: "index_allowance_details_on_employee_id"
     t.index ["level_id"], name: "index_allowance_details_on_level_id"
   end
@@ -41,10 +39,10 @@ ActiveRecord::Schema.define(version: 20160716163101) do
     t.integer  "employee_id"
     t.float    "trans_allowance"
     t.float    "beauty_allowance"
-    t.float    "lunch_allawance"
-    t.float    "bicyle_allowance"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.float    "lunch_allowance"
+    t.float    "bicycle_allowance"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.index ["employee_id"], name: "index_benefits_on_employee_id"
   end
 
@@ -69,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160716163101) do
     t.string   "email"
     t.string   "uid"
     t.boolean  "insurance"
-    t.string   "personal_deduction"
+    t.boolean  "personal_deduction"
     t.integer  "number_of_dependence"
     t.float    "base_salary",          limit: 53
     t.integer  "category_id"

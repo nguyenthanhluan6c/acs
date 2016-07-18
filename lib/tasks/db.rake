@@ -7,17 +7,42 @@ namespace :db do
       puts "Creating admin"
       Rake::Task["db:create_admin"].invoke
 
+      puts "Creating categories"
+      ["DIV1", "DIV2", "DIV3", "EDU", "BO", "HR", "INFRA"].each do |name|
+        FactoryGirl.create :category, name: name
+      end
+
       puts "Creating hr"
       FactoryGirl.create :user, :hr
 
       puts "Creating users"
       50.times do
-        FactoryGirl.create :user
+        user = FactoryGirl.create :user
+        employee = FactoryGirl.create :employee, email: user.email
+        user.update_attributes employee: employee
       end
 
-      puts "Creating categories"
-      ["DIV1", "DIV2", "DIV3", "EDU", "BO", "HR", "INFRA"].each do |name|
-        FactoryGirl.create :category, name: name
+      puts "Creating admin settings"
+      [["Health allowance", 500000],["Home allowance", 300000]].each do |key, value|
+        AdminSetting.create name: key, value: value
+      end
+
+      puts "Creating allowance"
+      ["N", "TOEIC", "RUBY"].each do |name|
+        allowance = Allowance.create name: name
+        1..5.times do |n|
+          Level.create level: n, value: n*200000, allowance: allowance
+        end
+      end
+
+      Employee.all.each do |employee|
+        trans_allowance = rand(10)*100000
+        beauty_allowance = rand(10)*100000
+        lunch_allowance = rand(10)*100000
+        bicycle_allowance = rand(10)*100000
+        Benefit.create employee: employee, trans_allowance: trans_allowance,
+          beauty_allowance: beauty_allowance, lunch_allowance: lunch_allowance,
+          bicycle_allowance: bicycle_allowance
       end
 
       puts "Completed rake data"

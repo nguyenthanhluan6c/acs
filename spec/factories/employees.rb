@@ -1,12 +1,11 @@
 FactoryGirl.define do
   factory :employee do
-    name "MyString"
-    email "MyString"
-    uid "MyString"
-    insurance false
-    personal_deduction "MyString"
-    number_of_dependence 1
-    base_salary ""
-    references ""
+    name {Faker::Name.name}   
+    uid {"U#{rand(1000)}"}
+    insurance {[true, false].sample}
+    personal_deduction {[true, false].sample}
+    number_of_dependence {rand 3}
+    base_salary {rand(1..20)*100000}
+    category_id {Category.pluck(:id).sample}
   end
 end
