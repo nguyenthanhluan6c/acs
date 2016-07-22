@@ -40,8 +40,8 @@
   <div id="main-menu">
     <ul>
        <% if current_user.admin? %>
-        <li><%= link_to t("manager.managers"), users_path,
-          class: ("selected" if ["users"].include? controller_name) %>
+        <li><%= link_to t(".salaries"), salaries_path,
+          class: ("selected" if ["salaries"].include? controller_name) %>
       <% end %>
     </ul>
   </div>

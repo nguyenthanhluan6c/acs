@@ -1,0 +1,16 @@
+en:
+  dictionary:
+    edit: &edit "Edit"
+  salaries:
+    salaries_header:
+      sequence: "#"
+      uid: "UID"
+      name: "Name"
+      category: "Category"
+      base_salary: "Base salary"
+      insurance: "Insurance"
+      personal_deduction: "deduction"
+      number_of_dependence: "dependence"
+      action: "Action"
+    salary:
+      edit: &edit
