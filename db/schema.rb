@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20160716163101) do
     t.index ["category_id"], name: "index_employees_on_category_id"
   end
 
-  create_table "fomulas", force: :cascade do |t|
+  create_table "formulas", force: :cascade do |t|
     t.string   "name"
     t.string   "display_name"
     t.string   "expression"
@@ -113,11 +113,11 @@ ActiveRecord::Schema.define(version: 20160716163101) do
 
   create_table "payslip_details", force: :cascade do |t|
     t.integer  "payslip_id"
-    t.integer  "type"
+    t.integer  "detail_type"
     t.integer  "target_id"
     t.string   "result"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["payslip_id"], name: "index_payslip_details_on_payslip_id"
   end
 

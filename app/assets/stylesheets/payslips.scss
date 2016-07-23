@@ -1,7 +1,7 @@
 @import "mixin";
 
-#salaries{
-  #salaries-list{
+#payslips{
+  #payslips-list{
     @include table;
     th{
       @include th;

@@ -35,6 +35,17 @@ namespace :db do
         end
       end
 
+      [
+        {name: "base_salary", display_name: "Base salary",expression: "employees.base_salary"},
+        {name: "home_allowance", display_name: "Home allowance",expression: "admin_settings.home_allowance"},
+        {name: "trans_allowance", display_name: "Trans allowance",expression: "benefits.trans_allowance"}
+      ].each_with_index do |formula, index|
+        Formula.create name: formula[:name], display_name: formula[:display_name],
+        expression: formula[:expression], index: index
+      end
+
+      all_formulas = Formula.all
+      all_levels = Level.all
       Employee.all.each do |employee|
         trans_allowance = rand(10)*100000
         beauty_allowance = rand(10)*100000
@@ -43,11 +54,17 @@ namespace :db do
         Benefit.create employee: employee, trans_allowance: trans_allowance,
           beauty_allowance: beauty_allowance, lunch_allowance: lunch_allowance,
           bicycle_allowance: bicycle_allowance
+
+        AllowanceDetail.create employee: employee, level: all_levels.sample
+
+        payslip = Payslip.create employee: employee, time: Date.current.beginning_of_month
+
+        PayslipDetail.create payslip: payslip, detail_type: :formula, target_id: all_formulas.sample.try(:id)
       end
 
       puts "Completed rake data"
     else
-      puts 'Can rake db:remake in development & staging environments only'
+      puts "Can rake db:remake in development & staging environments only"
     end
   end
 

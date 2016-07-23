@@ -124,12 +124,6 @@
   padding: 5px;
 }
 
-@mixin table {
-  width: auto;
-  display: table;
-  margin-bottom: 0px;
-}
-
 @mixin title-header-table($height, $border-bottom) {
   height: $height;
   text-align: center;
@@ -192,4 +186,25 @@
   height: $height;
   border-right: 1px solid #CCC;
   float: left;
+}
+
+@mixin table-cell{
+  text-align: left;
+  padding: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border: 1px solid #CCC;
+}
+
+@mixin table {
+  width: 96%;
+  margin-left: 2%;
+}
+
+@mixin th {
+  @include table-cell;
+}
+
+@mixin td {
+  @include table-cell;
 }

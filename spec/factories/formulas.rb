@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :fomula do
+  factory :formula do
     name "MyString"
     display_name "MyString"
     expression "MyString"
