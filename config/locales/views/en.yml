@@ -1,6 +1,7 @@
 en:
   layouts:
     title: "Accounting System"
+    application_short_name: "ACS"
   dictionary:
     edit: &edit "Edit"
     sequence: &sequence "#"
