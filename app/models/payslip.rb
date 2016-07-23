@@ -6,6 +6,7 @@ class Payslip < ApplicationRecord
     beginning_of_month = date.beginning_of_month
     where time: beginning_of_month
   end
+  scope :includes_resources, -> {includes employee: :category}
 
   def get_value_from_formulas index
     expression = Formula.find_by_index(index).expression

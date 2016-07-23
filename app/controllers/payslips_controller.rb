@@ -3,6 +3,6 @@ class PayslipsController < ApplicationController
   skip_load_resource only: :index
 
   def index
-    @payslips = Payslip.of_month(Date.current)
+    @payslips = Payslip.of_month(Date.current).includes_resources
   end
 end
