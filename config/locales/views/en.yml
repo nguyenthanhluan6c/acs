@@ -1,16 +1,33 @@
 en:
+  layouts:
+    title: "Accounting System"
   dictionary:
     edit: &edit "Edit"
+    sequence: &sequence "#"
+    uid: &uid "UID"
+    name: &name "Name"
+    category: &category "Category"
+    action: &action "Action"
   salaries:
+    title: "Salaries"
     salaries_header:
-      sequence: "#"
-      uid: "UID"
-      name: "Name"
-      category: "Category"
+      sequence: *sequence
+      uid: *uid
+      name: *name
+      category: *category
       base_salary: "Base salary"
       insurance: "Insurance"
-      personal_deduction: "deduction"
-      number_of_dependence: "dependence"
-      action: "Action"
+      personal_deduction: "Deduction"
+      number_of_dependence: "Dependence"
+      action: *action
     salary:
+      edit: &edit
+  payslips:
+    payslips_header:
+      sequence: *sequence
+      uid: *uid
+      name: *name
+      category: *category
+      action: *action
+    payslip:
       edit: &edit
