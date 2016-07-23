@@ -13,11 +13,12 @@
 ActiveRecord::Schema.define(version: 20160716163101) do
 
   create_table "admin_settings", force: :cascade do |t|
+    t.string   "display_name"
     t.string   "name"
     t.string   "value"
     t.integer  "index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "allowance_details", force: :cascade do |t|

@@ -23,8 +23,8 @@ namespace :db do
       end
 
       puts "Creating admin settings"
-      [["Health allowance", 500000],["Home allowance", 300000]].each do |key, value|
-        AdminSetting.create name: key, value: value
+      [["Health allowance", "health_allowance", 500000],["Home allowance", "home_allowance", 300000]].each do |display_name, key, value|
+        AdminSetting.create display_name: display_name, name: key, value: value
       end
 
       puts "Creating allowance"

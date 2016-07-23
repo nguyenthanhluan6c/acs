@@ -15,8 +15,8 @@ module ExpressionHandles
   end
 
   def handle_method method
-    if support_method? method
-      method_type = METHODS_SUPPORTED[support_method? method][0..-2].downcase
+    if method_type = support_method(method)
+      method_type = method_type.gsub("(","").downcase
       method = handle_setting method
       method_name = "handle_#{method_type}"
       arr_params = handle_params method
@@ -50,11 +50,13 @@ module ExpressionHandles
     if eval("@#{column}").send "nil?"
       column.gsub /#{@regexs[:column]}/ do |cl|
         index = ConvertColumnService.index_char_to_int cl
-        temp_column = @columns.find_by index: index
-        send "instance_variable_set", "@#{column}", @payslip_details.find_by(column: temp_column).result
+        # temp_column = @columns.find_by index: index
+        # send "instance_variable_set", "@#{column}", @payslip_details.find_by(column: temp_column).result
+        2
       end
     else
-      send "eval", "@#{column}"
+      # send "eval", "@#{column}"
+      2
     end
   end
 
@@ -68,6 +70,7 @@ module ExpressionHandles
     str_params = method.gsub /#{@regexs[:get_params_from_method]}/, "\\2"
     arr_params = str_params.scan /#{@regexs[:split_params_string_to_array]}/
     calculated_params = []
+
     arr_params.each do |param|
       if is_array? param
         handle_array(param).each do |item_in_array_by_int|
