@@ -56,11 +56,10 @@ ActiveRecord::Schema.define(version: 20160716163101) do
   create_table "columns", force: :cascade do |t|
     t.string   "name"
     t.string   "display_name"
-    t.string   "table_name"
-    t.string   "attribute_name"
-    t.integer  "index"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "table_expression"
+    t.string   "index"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "employees", force: :cascade do |t|
@@ -81,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160716163101) do
     t.string   "name"
     t.string   "display_name"
     t.string   "expression"
-    t.integer  "index"
+    t.string   "index"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

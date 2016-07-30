@@ -47,17 +47,8 @@ module ExpressionHandles
   end
 
   def handle_column column
-    if eval("@#{column}").send "nil?"
-      column.gsub /#{@regexs[:column]}/ do |cl|
-        index = ConvertColumnService.index_char_to_int cl
-        # temp_column = @columns.find_by index: index
-        # send "instance_variable_set", "@#{column}", @payslip_details.find_by(column: temp_column).result
-        2
-      end
-    else
-      # send "eval", "@#{column}"
-      2
-    end
+    table_expression = @columns.find_by(index: column).table_expression
+    OperandValue.value_of table_expression
   end
 
   def handle_percent percent

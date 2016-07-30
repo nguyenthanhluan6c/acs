@@ -4,7 +4,7 @@ class CreateFormulas < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :display_name
       t.string :expression
-      t.integer :index
+      t.string :index
 
       t.timestamps
     end

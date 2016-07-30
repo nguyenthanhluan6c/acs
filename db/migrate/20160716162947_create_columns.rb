@@ -3,9 +3,8 @@ class CreateColumns < ActiveRecord::Migration[5.0]
     create_table :columns do |t|
       t.string :name
       t.string :display_name
-      t.string :table_name
-      t.string :attribute_name
-      t.integer :index
+      t.string :table_expression
+      t.string :index
 
       t.timestamps
     end
