@@ -36,9 +36,9 @@ namespace :db do
       end
 
       [
-        {name: "base_salary", display_name: "Base salary",expression: "employees.base_salary"},
-        {name: "home_allowance", display_name: "Home allowance",expression: "admin_settings.home_allowance"},
-        {name: "trans_allowance", display_name: "Trans allowance",expression: "benefits.trans_allowance"}
+        {name: "base_salary", display_name: "Base salary", expression: "1+2+4+ROUND(10/3,2)"},
+        {name: "home_allowance", display_name: "Home allowance", expression: "10/2+2-3*SUM(1,3,6)"},
+        {name: "trans_allowance", display_name: "Trans allowance", expression: "3^2+2*4"}
       ].each_with_index do |formula, index|
         Formula.create name: formula[:name], display_name: formula[:display_name],
         expression: formula[:expression], index: index
