@@ -58,8 +58,9 @@ namespace :db do
         AllowanceDetail.create employee: employee, level: all_levels.sample
 
         payslip = Payslip.create employee: employee, time: Date.current.beginning_of_month
-
-        PayslipDetail.create payslip: payslip, detail_type: :formula, target_id: all_formulas.sample.try(:id)
+        all_formulas.each do |formula|
+          PayslipDetail.create payslip: payslip, detail_type: :formula, formula: formula
+        end
       end
 
       puts "Completed rake data"

@@ -114,11 +114,12 @@ ActiveRecord::Schema.define(version: 20160716163101) do
 
   create_table "payslip_details", force: :cascade do |t|
     t.integer  "payslip_id"
+    t.integer  "formula_id"
     t.integer  "detail_type"
-    t.integer  "target_id"
     t.string   "result"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["formula_id"], name: "index_payslip_details_on_formula_id"
     t.index ["payslip_id"], name: "index_payslip_details_on_payslip_id"
   end
 
