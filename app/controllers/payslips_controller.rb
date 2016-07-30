@@ -4,5 +4,6 @@ class PayslipsController < ApplicationController
 
   def index
     @payslips = Payslip.of_month(Date.current).includes_resources
+    @formulas = Formula.all
   end
 end

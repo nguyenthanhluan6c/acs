@@ -23,8 +23,8 @@ namespace :db do
       end
 
       puts "Creating admin settings"
-      [["Health allowance", 500000],["Home allowance", 300000]].each do |key, value|
-        AdminSetting.create name: key, value: value
+      [["Health allowance", "health_allowance", 500000],["Home allowance", "home_allowance", 300000]].each do |display_name, key, value|
+        AdminSetting.create display_name: display_name, name: key, value: value
       end
 
       puts "Creating allowance"
@@ -58,8 +58,9 @@ namespace :db do
         AllowanceDetail.create employee: employee, level: all_levels.sample
 
         payslip = Payslip.create employee: employee, time: Date.current.beginning_of_month
-
-        PayslipDetail.create payslip: payslip, detail_type: :formula, target_id: all_formulas.sample.try(:id)
+        all_formulas.each do |formula|
+          PayslipDetail.create payslip: payslip, detail_type: :formula, formula: formula
+        end
       end
 
       puts "Completed rake data"

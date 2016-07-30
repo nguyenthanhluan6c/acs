@@ -1,0 +1,4 @@
+formulas:
+  errors:
+    error_formula: "Error formula"
+    not_suport: "Formula not support"

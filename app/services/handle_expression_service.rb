@@ -1,9 +1,9 @@
 class HandleExpressionService
   def initialize payslip, payslip_details
-    @payslip = payslip
-    @employee = payslip.employee
-    @payslip_details = payslip_details
-    @columns = Column.all
+    # @payslip = payslip
+    # @employee = payslip.employee
+    # @payslip_details = payslip_details
+    # @columns = Column.all
     @regexs = {
       array: '([A-Z]+\d+|[A-Z]+):([A-Z]+\d+|[A-Z]+)',
       column: '[A-Z]+\d+|[A-Z]+',
@@ -13,11 +13,14 @@ class HandleExpressionService
       replace_percent: '%',
       replace_setting: '\$|\d+',
       get_params_from_method: '([A-Z]+\()(.*)(\))',
+      # split_params_string_to_array: '[A-Z]+(?:\()[\(\)\w+\+\-\*\/\d+<=>\.\,\:\$%]+\)|[\w+\+\-\*\/\d+<=>\.\:\$%]+',
+      split_expression_with_method: '\w+\([^\)]+\)|[()+-\/*^]|%|,|>=|>|<=|<|!=|==|&&|\w+\(|\d+%|\d\.\d+|\d+|\w+',
       split_params_string_to_array: '[A-Z]+(?:\()[\(\)\w+\+\-\*\/\d+<=>\.\,\:\$%]+\)|[\w+\+\-\*\/\d+<=>\.\:\$%]+',
       find_space: '\s',
       find_operand: '[A-Z]+\d+:[A-Z]+\d+|[A-Z]+:[A-Z]+|\$[A-Z]+\$\d+|\$[A-Z]+|[A-Z]+\d+|[A-Z]+|\d+%|\d+\.\d+|\d+',
-      split_expression: '[A-Z]+(?:\()[\w+\:\(\+\*\/\-\)\>\=\<\!\,\$\%]+\)|[A-Z]+\:[A-Z]+|[A-Z]+\d+\:[A-Z]+\d+|'\
-        '\$[A-Z]+\$\d+|\$[A-Z]+|[A-Z]+\d+|[A-Z]+|\d+%|\d+\.\d+|\d+|\^|\+|\-|\*|\/|>=|>|<=|<|!=|==|&&|[()]',
+      # split_expression: '[A-Z]+(?:\()[\w+\:\(\+\*\/\-\)\>\=\<\!\,\$\%]+\)|[A-Z]+\:[A-Z]+|[A-Z]+\d+\:[A-Z]+\d+|'\
+      #   '\$[A-Z]+\$\d+|\$[A-Z]+|[A-Z]+\d+|[A-Z]+|\d+%|\d+\.\d+|\d+|\^|\+|\-|\*|\/|>=|>|<=|<|!=|==|&&|[()]',
+      split_expression: /[()+-\/*^]|%|,|>=|>|<=|<|!=|==|&&|\w+\(|\d+%|\d\.\d+|\d+|\w+/
     }
     @errors = nil
   end
@@ -29,12 +32,15 @@ class HandleExpressionService
 
     expression = standardized_expression expression
     if is_method? expression
-      elements = expression.scan /#{@regexs[:split_params_string_to_array]}/
+      elements = expression.scan /#{@regexs[:split_expression_with_method]}/
     else
-      elements = expression.scan /#{@regexs[:split_expression]}/
+      elements = expression.scan @regexs[:split_expression]
+      return nil if elements.join != expression
+      #replace ++ -- by +, -+ +- by -
     end
-    sh = []
-    st = []
+    puts elements
+    sh = SupportExpression::Stack.new
+    st = SupportExpression::Stack.new
     elements.each do |element|
       if /#{@regexs[:find_operand]}/ =~ element
         ["method", "setting", "column", "percent"].each do |type|
@@ -44,6 +50,7 @@ class HandleExpressionService
           end
         end
         element = eval element if element.is_a? String
+        puts element
         sh.push element
       elsif "(" == element
         st.push element
@@ -74,6 +81,7 @@ class HandleExpressionService
   private
   include ExpressionCheckTypes
   include ExpressionHandles
+  include SupportExpression
   def standardized_expression expression
     expression.gsub! /#{@regexs[:find_space]}/, ""
     expression.upcase!
@@ -83,19 +91,16 @@ class HandleExpressionService
   def calc first_operand, second_operand, operator
     if ["+", "-", "*", "/", ">=", ">", "<", "<=", "^"].include? operator
       first_operand, second_operand = first_operand.to_f, second_operand.to_f
-      operator = "**" if operator == "^"
-    end
-
-    if ["&&", "||"].include? operator
+      raise ZeroDivisionError if operator == "/" && first_operand == 0
+    elsif ["&&", "||"].include? operator
       first_operand, second_operand = !!first_operand, !!second_operand
     end
 
-    return nil if operator == "/" && first_operand == 0
     eval "#{second_operand}#{operator}#{first_operand}"
   end
 
   def priority operator
-    return 6 if operator == "**"
+    return 6 if operator == "^"
     return 5 if ["*", "/"].include? operator
     return 4 if ["+", "-"].include? operator
     return 3 if [">=", ">", "<", "<="].include? operator
