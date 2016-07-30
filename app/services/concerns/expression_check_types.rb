@@ -2,30 +2,28 @@ module ExpressionCheckTypes
   ATOM_ELEMENTS = '\w+|\(|\)|\+|\-|\*|\/|<=|>=|==|,'
   METHODS_SUPPORTED = ["SUM(", "ROUND(", "IF("]
   def is_method? method
-    atom_elements  = method.scan /#{ATOM_ELEMENTS}/
-    stack_element = []
-    atom_elements.each_with_index do |element, index|
-      stack_element.push element if element == "("
-      if element == ")"
-        stack_element.pop
-        return true if stack_element.empty? && atom_elements[index + 1].nil?
-        return false if stack_element.empty? && atom_elements[index + 1].present?
-      end
-    end
-    return false
+    # atom_elements  = method.scan /#{ATOM_ELEMENTS}/
+    # stack_element = []
+    # atom_elements.each_with_index do |element, index|
+    #   if element == "("
+    #     stack_element.push element 
+    #   elsif element == ")"
+    #     stack_element.pop
+    #     binding.pry
+    #     return true if stack_element.empty? && atom_elements[index + 1].nil?
+    #     return false if stack_element.empty? && atom_elements[index + 1].present?
+    #   end
+    # end
+    # return false
+    support_method(method).present?
   end
 
-  def support_method? string
-    priority_index = string.length
-    method_index = nil
+  def support_method string
     METHODS_SUPPORTED.each_with_index do |method, index|
       current_method = string.index method
-      if current_method && current_method < priority_index
-        method_index = index
-        priority_index = current_method
-      end
+      return method if current_method.present?
     end
-    method_index ? method_index : false
+    nil
   end
 
   ["array", "column", "setting", "percent"].each do |type|

@@ -14,7 +14,8 @@ class ExpressionService
 
   def valid_expression? expression
     if is_method? expression
-      valid_parenthesis?(expression) && valid_method?(expression) && valid_syntax?(expression)
+      valid_parenthesis?(expression) && valid_syntax?(expression)
+       # && valid_method?(expression)
     else
       valid_parenthesis?(expression) && valid_syntax?(expression)
     end
@@ -51,24 +52,21 @@ class ExpressionService
     return true
   end
 
-  def valid_method? method
+  def valid_method? expresion_method
+    method= expresion_method
     str_params = method.gsub /#{@regexs[:get_params_from_method]}/, "\\2"
     arr_params = str_params.scan /#{@regexs[:split_params_string_to_array]}/
     num_params = arr_params.count
-    method_index = support_method? method
+    method_index = support_method method
     @errors = Settings.formulas.errors.not_suport unless method_index
-
     case method_index
-    when 0
-      return false if num_params < 0
-    when 1
-      return false unless [1, 2].include?(num_params)
-    when 2
-      return false unless [1, 2, 3].include?(num_params)
+    when "SUM("
+      return num_params > 0
+    when "ROUND("
+      return num_params == 2
+    when "IF("
+      return num_params == 1
     end
-    arr_params.each do |param|
-      return false if is_method?(param) && !valid_method?(param)
-    end
-    return true
+    false
   end
 end
