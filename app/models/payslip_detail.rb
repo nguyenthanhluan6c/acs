@@ -8,6 +8,6 @@ class PayslipDetail < ApplicationRecord
   delegate :name, to: :formula, prefix: true
 
   def caculated_result
-    result ||= 0
+    result ||= formula.excute_value
   end
 end

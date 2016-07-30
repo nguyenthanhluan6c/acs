@@ -91,6 +91,7 @@ class HandleExpressionService
   def calc first_operand, second_operand, operator
     if ["+", "-", "*", "/", ">=", ">", "<", "<=", "^"].include? operator
       first_operand, second_operand = first_operand.to_f, second_operand.to_f
+      operator = "**" if operator == "^"
       raise ZeroDivisionError if operator == "/" && first_operand == 0
     elsif ["&&", "||"].include? operator
       first_operand, second_operand = !!first_operand, !!second_operand
