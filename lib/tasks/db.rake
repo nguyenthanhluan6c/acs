@@ -36,12 +36,22 @@ namespace :db do
       end
 
       [
-        {name: "base_salary", display_name: "Base salary", expression: "1+2+4+ROUND(10/3,2)"},
-        {name: "home_allowance", display_name: "Home allowance", expression: "10/2+2-3*SUM(1,3,6)"},
-        {name: "trans_allowance", display_name: "Trans allowance", expression: "3^2+2*4"}
-      ].each_with_index do |formula, index|
+        {name: "home_allowance", display_name: "Home allowance", table_expression: "admin_settings.value, name: home_allowance", index: "A"},
+        {name: "health_allowance", display_name: "Health allowance", table_expression: "admin_settings.value, name: health_allowance", index: "B"}
+      ].each do |column|
+        Column.create name: column[:name], display_name: column[:display_name],
+        table_expression: column[:table_expression], index: column[:index]
+      end
+
+      [
+        {name: "lunch_allowance", display_name: "Lunch allowance", expression: "1+2+4+ROUND(10/3,2)", index: ""},
+        {name: "beauty_allowance", display_name: "Beauty allowance", expression: "10/2+2-3*SUM(1,3,6)", index: ""},
+        {name: "trans_allowance", display_name: "Trans allowance", expression: "3^2+2*4", index: ""},
+        {name: "home_allowance", display_name: "Home allowance", expression: "A", index: "AA"},
+        {name: "health_allowance", display_name: "Health allowance", expression: "B", index: "AB"}
+      ].each do |formula|
         Formula.create name: formula[:name], display_name: formula[:display_name],
-        expression: formula[:expression], index: index
+        expression: formula[:expression], index: formula[:index]
       end
 
       all_formulas = Formula.all

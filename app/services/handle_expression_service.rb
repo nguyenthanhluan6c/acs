@@ -3,7 +3,7 @@ class HandleExpressionService
     # @payslip = payslip
     # @employee = payslip.employee
     # @payslip_details = payslip_details
-    # @columns = Column.all
+    @columns = Column.all
     @regexs = {
       array: '([A-Z]+\d+|[A-Z]+):([A-Z]+\d+|[A-Z]+)',
       column: '[A-Z]+\d+|[A-Z]+',
@@ -38,7 +38,6 @@ class HandleExpressionService
       return nil if elements.join != expression
       #replace ++ -- by +, -+ +- by -
     end
-    puts elements
     sh = SupportExpression::Stack.new
     st = SupportExpression::Stack.new
     elements.each do |element|
@@ -50,7 +49,6 @@ class HandleExpressionService
           end
         end
         element = eval element if element.is_a? String
-        puts element
         sh.push element
       elsif "(" == element
         st.push element

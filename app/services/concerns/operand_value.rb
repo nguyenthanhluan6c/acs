@@ -5,7 +5,7 @@ module OperandValue
   #EXAMPLE = "admin_setting.value,name:health_allowance"
   class << self
     def value_of params
-      str = params.to_s
+      str = params.to_s.gsub /\s+/, ""
       return Float str if numeric? str
       return value_of_database_expression str if valid_database_expression? str
     end
