@@ -4,6 +4,9 @@ class PayslipsController < ApplicationController
 
   def index
     @payslips = Payslip.of_month(Date.current).includes_resources
+    @payslips.each do |payslip|
+      payslip.update_cache_to_children
+    end
     @formulas = Formula.all
   end
 end

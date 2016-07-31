@@ -1,9 +1,15 @@
 class HandleExpressionService
+  @@count = 0
+  @@columns = Column.all
+
   def initialize payslip, payslip_details
-    # @payslip = payslip
-    # @employee = payslip.employee
+    @@count += 1
+    puts "creating new service number #{@@count}"
+
+    @payslip = payslip
+    @employee = payslip.employee
     # @payslip_details = payslip_details
-    @columns = Column.all
+    @columns = @@columns
     @regexs = {
       array: '([A-Z]+\d+|[A-Z]+):([A-Z]+\d+|[A-Z]+)',
       column: '[A-Z]+\d+|[A-Z]+',
@@ -77,9 +83,11 @@ class HandleExpressionService
   end
 
   private
+  attr_accessor :payslip, :employee, :columns, :regexs
   include ExpressionCheckTypes
   include ExpressionHandles
   include SupportExpression
+  include OperandValue
   def standardized_expression expression
     expression.gsub! /#{@regexs[:find_space]}/, ""
     expression.upcase!

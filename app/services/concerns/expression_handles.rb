@@ -1,5 +1,6 @@
 module ExpressionHandles
   include ExpressionCheckTypes
+
   def handle_sum params
     params.reduce{|a, b| a.to_f + b.to_f}
   end
@@ -47,8 +48,10 @@ module ExpressionHandles
   end
 
   def handle_column column
-    table_expression = @columns.find_by(index: column).table_expression
-    OperandValue.value_of table_expression
+    table_expression = columns.detect do |column_record|
+      column_record.index == column
+    end.table_expression
+    value_of table_expression
   end
 
   def handle_percent percent
