@@ -23,7 +23,10 @@ namespace :db do
       end
 
       puts "Creating admin settings"
-      [["Health allowance", "health_allowance", 500000],["Home allowance", "home_allowance", 300000]].each do |display_name, key, value|
+      [
+        ["Health allowance", "health_allowance", 500000],
+        ["Home allowance", "home_allowance", 300000]
+      ].each do |display_name, key, value|
         AdminSetting.create display_name: display_name, name: key, value: value
       end
 
@@ -37,7 +40,9 @@ namespace :db do
 
       [
         {name: "home_allowance", display_name: "Home allowance", table_expression: "admin_settings.value, name: home_allowance", index: "A"},
-        {name: "health_allowance", display_name: "Health allowance", table_expression: "admin_settings.value, name: health_allowance", index: "B"}
+        {name: "health_allowance", display_name: "Health allowance", table_expression: "admin_settings.value, name: health_allowance", index: "B"},
+        {name: "trans_allowance", display_name: "Trans allowance", table_expression: "benefits.trans_allowance, employee: param", index: "C"},
+        {name: "n_allowance", display_name: "Japanese allowance", table_expression: "levels.value, employee: param", index: "D"}
       ].each do |column|
         Column.create name: column[:name], display_name: column[:display_name],
         table_expression: column[:table_expression], index: column[:index]
@@ -46,9 +51,10 @@ namespace :db do
       [
         {name: "lunch_allowance", display_name: "Lunch allowance", expression: "1+2+4+ROUND(10/3,2)", index: ""},
         {name: "beauty_allowance", display_name: "Beauty allowance", expression: "10/2+2-3*SUM(1,3,6)", index: ""},
-        {name: "trans_allowance", display_name: "Trans allowance", expression: "3^2+2*4", index: ""},
         {name: "home_allowance", display_name: "Home allowance", expression: "A", index: "AA"},
-        {name: "health_allowance", display_name: "Health allowance", expression: "B", index: "AB"}
+        {name: "health_allowance", display_name: "Health allowance", expression: "B", index: "AB"},
+        {name: "trans_allowance", display_name: "Trans allowance", expression: "C", index: "AC"},
+        {name: "n_allowance", display_name: "Japanese allowance", expression: "D", index: "AD"}
       ].each do |formula|
         Formula.create name: formula[:name], display_name: formula[:display_name],
         expression: formula[:expression], index: formula[:index]

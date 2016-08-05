@@ -1,4 +1,5 @@
 class Payslip < ApplicationRecord
+  attr_accessor :caculation_service
   belongs_to :employee
   has_many :payslip_details, ->{order formula_id: :asc}
 
@@ -16,5 +17,15 @@ class Payslip < ApplicationRecord
     handle_expression_service = HandleExpressionService.new @payslip, @payslip_details
     result = handle_expression_service.calc_expression expression rescue nil
     result
+  end
+
+  def caculation_service
+    @caculation_service ||= HandleExpressionService.new(self, nil)
+  end
+
+  def update_cache_to_children
+    payslip_details.each do |payslip_detail|
+      payslip_detail.cached_payslip = self
+    end
   end
 end
