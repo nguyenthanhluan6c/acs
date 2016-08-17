@@ -21,3 +21,7 @@
 //= require bootstrap/tab
 //= require bootstrap/alert
 //= require_tree .
+
+$(document).on("ready turbolinks:load", function(){
+  resetOrder();
+});
