@@ -1,0 +1,13 @@
+<tr>
+  <%= form_for [:admin, admin_setting] do |f| %>
+    <td class="stt"></td>
+    <td><%= f.text_field :display_name %></td>
+    <td><%= f.text_field :name %></td>
+    <td><%= f.text_field :value %></td>
+    <td><%= f.text_field :index %></td>
+    <td>
+      <%= f.submit t(".save"), class: "btn btn-primary" %>
+      <%= link_to t(".delete"), [:admin, admin_setting], method: :delete, class: "btn btn-danger" %>
+    </td>
+  <% end %>
+</tr>
