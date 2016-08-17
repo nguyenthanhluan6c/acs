@@ -31,6 +31,11 @@ namespace :db do
       end
 
       puts "Creating allowance"
+      [["Night", 150], ["Holiday", 200], ["Night holiday", 250]].each do |name, percent|
+        OverTime.create name: name, percent: percent
+      end
+
+      puts "Creating OverTimes"
       ["N", "TOEIC", "RUBY"].each do |name|
         allowance = Allowance.create name: name
         1..5.times do |n|
@@ -62,11 +67,16 @@ namespace :db do
 
       all_formulas = Formula.all
       all_levels = Level.all
+      all_over_times = OverTime.all
       Employee.all.each do |employee|
         trans_allowance = rand(10)*100000
         beauty_allowance = rand(10)*100000
         lunch_allowance = rand(10)*100000
         bicycle_allowance = rand(10)*100000
+        vacation_with_salary = rand(10..20)
+        vacation_without_salary = rand(0..5)
+        total_vacation_with_insurance_fee = rand(0..5)
+        total_hour = rand(0..5)
         Benefit.create employee: employee, trans_allowance: trans_allowance,
           beauty_allowance: beauty_allowance, lunch_allowance: lunch_allowance,
           bicycle_allowance: bicycle_allowance
@@ -77,6 +87,11 @@ namespace :db do
         all_formulas.each do |formula|
           PayslipDetail.create payslip: payslip, detail_type: :formula, formula: formula
         end
+        timesheet = Timesheet.create employee: employee, time: Date.current.beginning_of_month,
+          vacation_with_salary: vacation_with_salary, vacation_without_salary: vacation_without_salary,
+          total_vacation_with_insurance_fee: total_vacation_with_insurance_fee
+        OverTimeDetail.create employee: employee, over_time: all_over_times.sample,
+          timesheet: timesheet, total_hour: total_hour
       end
 
       puts "Completed rake data"
