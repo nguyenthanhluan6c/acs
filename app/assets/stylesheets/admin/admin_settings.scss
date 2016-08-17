@@ -1,0 +1,19 @@
+@import "mixin";
+
+#admin_settings{
+  #action-new-admin-setting{
+    padding: 12px;
+  }
+  #admin_settings-list{
+    @include table;
+    th{
+      @include th;
+    }
+    td{
+      @include td;
+      input[type=text]{
+        width: 100%;
+      }
+    }
+  }
+}

@@ -6,14 +6,10 @@
     </a>
 
     <ul class="dropdown-menu pull-right filters filter-right-arow">
-      <% if current_user.hr? %>
-        <li><%= link_to t("layouts.master_datas"), price_masters_path %></li>
-        <li><%= link_to t("layouts.categories"), categories_path %></li>
-        <li><%= link_to t("layouts.ranks"), ranks_path %></li>
+      <% if current_user.admin? %>
+        <li><%= link_to t(".admin_settings"), admin_admin_settings_path %></li>
         <li class="divider"></li>
-        <li><%= link_to t("layouts.periods"), periods_path %></li>
-        <li><%= link_to t("layouts.strong_points"), strong_points_path %></li>
-        <li><%= link_to t("layouts.skills"), skills_path %></li>
+        <li><%= link_to t(".admin_settings"), admin_admin_settings_path %></li>
         <li class="divider"></li>
       <% end %>
         <% if current_user.hr? %>
