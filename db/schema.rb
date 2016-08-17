@@ -95,13 +95,15 @@ ActiveRecord::Schema.define(version: 20160716163101) do
   end
 
   create_table "over_time_details", force: :cascade do |t|
-    t.integer  "overtime_id"
+    t.integer  "over_time_id"
+    t.integer  "timesheet_id"
     t.integer  "employee_id"
     t.float    "total_hour"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["employee_id"], name: "index_over_time_details_on_employee_id"
-    t.index ["overtime_id"], name: "index_over_time_details_on_overtime_id"
+    t.index ["over_time_id"], name: "index_over_time_details_on_over_time_id"
+    t.index ["timesheet_id"], name: "index_over_time_details_on_timesheet_id"
   end
 
   create_table "over_times", force: :cascade do |t|

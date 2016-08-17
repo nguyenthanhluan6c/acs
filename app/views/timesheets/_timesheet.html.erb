@@ -1,0 +1,19 @@
+<tr>
+  <td class="stt"></td>
+  <td><%= timesheet.uid %></td>
+  <td><%= timesheet.name %></td>
+  <td><%= timesheet.category_name %></td>
+  <%= form_for timesheet do |f| %>
+    <td><%= f.text_field :vacation_with_salary %></td>
+    <td><%= f.text_field :vacation_without_salary %></td>
+    <td><%= f.text_field :total_vacation_with_insurance_fee %></td>
+    <%= f.fields_for :over_time_detail do |ff| %>
+      <td><%= ff.text_field :total_hour %></td>
+    <% end %>
+    <td><%= timesheet.over_time_name %></td>
+    <td><%= timesheet.over_time_percent %></td>
+    <td>
+      <%= f.submit t(".save"), class: "btn btn-primary" %>
+    </td>
+  <% end %>
+</tr>
