@@ -1,0 +1,13 @@
+<div id="action-new-admin-setting">
+  <a role="button" data-toggle="modal" href="javascript:void(0)"
+    data-target="#new-admin-setting-modal" data-backdrop="static">
+    <i class="fa fa-plus"></i>
+    <%= t ".new_modal_admin_setting" %>
+  </a>
+</div>
+<%= render "new_modal", admin_setting: @admin_setting %>
+
+<table id="admin_settings-list">
+  <thead><%= render "admin_settings_header" %></thead>
+  <tbody><%= render @admin_settings %></tbody>
+</table>

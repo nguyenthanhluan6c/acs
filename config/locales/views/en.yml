@@ -3,12 +3,23 @@ en:
     title: "Accounting System"
     application_short_name: "ACS"
   dictionary:
+    save: &save "Save"
     edit: &edit "Edit"
     sequence: &sequence "#"
     uid: &uid "UID"
     name: &name "Name"
     category: &category "Category"
     action: &action "Action"
+    updated: &updated "Updated successfully"
+    deleted: &deleted "Deleted successfully"
+    created: &created "Created successfully"
+    saving: &saving "Saving"
+    cancel: &cancel "Cancel"
+  flashs:
+    messages:
+      updated: *updated
+      deleted: *deleted
+      created: *created
   salaries:
     title: "Salaries"
     salaries_header:
@@ -32,3 +43,16 @@ en:
       action: *action
     payslip:
       edit: &edit
+  admin:
+    admin_settings:
+      index:
+        new_modal_admin_setting: "New admin setting"
+      admin_setting:
+        save: *save
+      new_modal:
+        title: "New admin setting"
+      form:
+        save: *save
+        saving: *saving
+        cancel: *cancel
+

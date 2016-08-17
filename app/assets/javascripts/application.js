@@ -13,4 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap/modal
+//= require bootstrap/dropdown
+//= require bootstrap/collapse
+//= require bootstrap/tooltip
+//= require bootstrap/popover
+//= require bootstrap/tab
+//= require bootstrap/alert
 //= require_tree .
