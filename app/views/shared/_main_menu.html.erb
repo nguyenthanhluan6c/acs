@@ -35,7 +35,7 @@
 
   <div id="main-menu">
     <ul>
-       <% if current_user.admin? %>
+      <% if current_user.admin? %>
         <li>
           <%= link_to t(".salaries"), salaries_path,
             class: ("selected" if ["salaries"].include? controller_name) %>
@@ -43,6 +43,10 @@
         <li>
           <%= link_to t(".payslips"), payslips_path,
             class: ("selected" if ["payslips"].include? controller_name) %>
+        </li>
+        <li>
+          <%= link_to t(".timesheets"), timesheets_path,
+            class: ("selected" if ["timesheets"].include? controller_name) %>
         </li>
       <% end %>
     </ul>

@@ -33,7 +33,7 @@ en:
       number_of_dependence: "Dependence"
       action: *action
     salary:
-      edit: &edit
+      edit: *edit
   payslips:
     payslips_header:
       sequence: *sequence
@@ -42,7 +42,10 @@ en:
       category: *category
       action: *action
     payslip:
-      edit: &edit
+      edit: *edit
+  timesheets:
+    timesheet:
+      save: *save
   admin:
     admin_settings:
       index:
@@ -55,4 +58,3 @@ en:
         save: *save
         saving: *saving
         cancel: *cancel
-

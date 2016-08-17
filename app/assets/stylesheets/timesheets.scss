@@ -1,0 +1,13 @@
+@import "mixin";
+
+#timesheets{
+  #timesheets-list{
+    @include table;
+    th{
+      @include th;
+    }
+    td{
+      @include td;
+    }
+  }
+}
