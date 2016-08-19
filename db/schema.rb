@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20160716163101) do
   create_table "timesheets", force: :cascade do |t|
     t.date     "time"
     t.integer  "employee_id"
+    t.float    "working_day"
     t.float    "vacation_with_salary"
     t.float    "vacation_without_salary"
     t.float    "total_vacation_with_insurance_fee"
