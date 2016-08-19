@@ -1,5 +1,5 @@
 class Timesheet < ApplicationRecord
-  ATTRIBUTES_PARAMS = [:vacation_with_salary, :vacation_without_salary,
+  ATTRIBUTES_PARAMS = [:working_day, :vacation_with_salary, :vacation_without_salary,
     :total_vacation_with_insurance_fee, over_time_detail_attributes: [:id, :total_hour]]
 
   has_one :over_time_detail

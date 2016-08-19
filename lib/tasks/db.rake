@@ -47,19 +47,22 @@ namespace :db do
         {name: "home_allowance", display_name: "Home allowance", table_expression: "admin_settings.value, name: home_allowance", index: "A"},
         {name: "health_allowance", display_name: "Health allowance", table_expression: "admin_settings.value, name: health_allowance", index: "B"},
         {name: "trans_allowance", display_name: "Trans allowance", table_expression: "benefits.trans_allowance, employee: param", index: "C"},
-        {name: "n_allowance", display_name: "Japanese allowance", table_expression: "levels.value, employee: param", index: "D"}
+        {name: "n_allowance", display_name: "Japanese allowance", table_expression: "levels.value, employee: param", index: "D"},
+        {name: "base_salary", display_name: "Base salary", table_expression: "employees.base_salary, employee: param", index: "E"},
+        {name: "working_day", display_name: "Working Day", table_expression: "timesheets.working_day, employee: param", index: "F"}
       ].each do |column|
         Column.create name: column[:name], display_name: column[:display_name],
         table_expression: column[:table_expression], index: column[:index]
       end
 
       [
-        {name: "lunch_allowance", display_name: "Lunch allowance", expression: "1+2+4+ROUND(10/3,2)", index: ""},
-        {name: "beauty_allowance", display_name: "Beauty allowance", expression: "10/2+2-3*SUM(1,3,6)", index: ""},
         {name: "home_allowance", display_name: "Home allowance", expression: "A", index: "AA"},
         {name: "health_allowance", display_name: "Health allowance", expression: "B", index: "AB"},
         {name: "trans_allowance", display_name: "Trans allowance", expression: "C", index: "AC"},
-        {name: "n_allowance", display_name: "Japanese allowance", expression: "D", index: "AD"}
+        {name: "n_allowance", display_name: "Japanese allowance", expression: "D", index: "AD"},
+        {name: "base_salary", display_name: "Base salary", expression: "E", index: "AE"},
+        {name: "working_day", display_name: "Working Day", expression: "F", index: "AF"},
+        {name: "total", display_name: "Total", expression: "A+B+C+E*F", index: "TT"},
       ].each do |formula|
         Formula.create name: formula[:name], display_name: formula[:display_name],
         expression: formula[:expression], index: formula[:index]
@@ -73,7 +76,8 @@ namespace :db do
         beauty_allowance = rand(10)*100000
         lunch_allowance = rand(10)*100000
         bicycle_allowance = rand(10)*100000
-        vacation_with_salary = rand(10..20)
+        working_day = rand(10..20)
+        vacation_with_salary = rand(0..5)
         vacation_without_salary = rand(0..5)
         total_vacation_with_insurance_fee = rand(0..5)
         total_hour = rand(0..5)
@@ -88,7 +92,8 @@ namespace :db do
           PayslipDetail.create payslip: payslip, detail_type: :formula, formula: formula
         end
         timesheet = Timesheet.create employee: employee, time: Date.current.beginning_of_month,
-          vacation_with_salary: vacation_with_salary, vacation_without_salary: vacation_without_salary,
+          working_day: working_day, vacation_with_salary: vacation_with_salary,
+          vacation_without_salary: vacation_without_salary,
           total_vacation_with_insurance_fee: total_vacation_with_insurance_fee
         OverTimeDetail.create employee: employee, over_time: all_over_times.sample,
           timesheet: timesheet, total_hour: total_hour
