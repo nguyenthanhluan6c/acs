@@ -22,6 +22,6 @@
 //= require bootstrap/alert
 //= require_tree .
 
-$(document).on("ready turbolinks:load", function(){
+$(document).on("ready, turbolinks:load", function(){
   resetOrder();
 });

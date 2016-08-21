@@ -9,5 +9,9 @@
     td{
       @include td;
     }
+    td:nth-child(n+5){
+      @include td;
+      text-align: right;
+    }
   }
 }
