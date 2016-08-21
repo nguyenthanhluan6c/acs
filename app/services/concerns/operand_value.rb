@@ -22,6 +22,10 @@ module OperandValue
       result = table.where(params).first.read_attribute table_column.to_sym rescue nil
     when "benefits"
       result = table.where(employee: @employee).first.read_attribute table_column.to_sym rescue nil
+    when "employees"
+      result = table.where(id: @employee.id).first.read_attribute table_column.to_sym rescue nil
+    when "timesheets"
+      result = table.where(employee: @employee).first.read_attribute table_column.to_sym rescue nil
     when "levels"
       result = table.includes(:allowance_details).where(allowance_details: {employee: @employee}).
         order(level: :desc).first.read_attribute table_column.to_sym rescue nil

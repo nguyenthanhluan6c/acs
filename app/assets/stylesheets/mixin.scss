@@ -203,6 +203,7 @@
 
 @mixin th {
   @include table-cell;
+  text-align: center;
 }
 
 @mixin td {

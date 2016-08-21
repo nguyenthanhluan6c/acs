@@ -1,9 +1,10 @@
-<tr>
-  <td class="stt"></td>
-  <td><%= timesheet.uid %></td>
-  <td><%= timesheet.name %></td>
-  <td><%= timesheet.category_name %></td>
-  <%= form_for timesheet do |f| %>
+<%= form_for timesheet do |f| %>
+  <tr>
+    <td class="stt"></td>
+    <td><%= timesheet.uid %></td>
+    <td><%= timesheet.name %></td>
+    <td><%= timesheet.category_name %></td>
+    <td><%= f.text_field :working_day %></td>
     <td><%= f.text_field :vacation_with_salary %></td>
     <td><%= f.text_field :vacation_without_salary %></td>
     <td><%= f.text_field :total_vacation_with_insurance_fee %></td>
@@ -15,5 +16,5 @@
     <td>
       <%= f.submit t(".save"), class: "btn btn-primary" %>
     </td>
-  <% end %>
-</tr>
+  </tr>
+<% end %>
