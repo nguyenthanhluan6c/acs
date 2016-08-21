@@ -44,6 +44,12 @@ en:
     payslip:
       edit: *edit
   timesheets:
+    timesheets_header:
+      sequence: *sequence
+      uid: *uid
+      name: *name
+      category: *category
+      action: *action
     timesheet:
       save: *save
   admin:
