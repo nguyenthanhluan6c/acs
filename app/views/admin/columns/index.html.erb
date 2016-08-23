@@ -1,0 +1,13 @@
+<div id="action-new-column">
+  <a role="button" data-toggle="modal" href="javascript:void(0)"
+    data-target="#new-column-modal" data-backdrop="static">
+    <i class="fa fa-plus"></i>
+    <%= t ".new_modal_column" %>
+  </a>
+</div>
+<%= render "new_modal", column: @column %>
+
+<table id="columns-list">
+  <thead><%= render "columns_header" %></thead>
+  <tbody><%= render @columns %></tbody>
+</table>

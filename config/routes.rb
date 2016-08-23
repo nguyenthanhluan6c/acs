@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "users#index"
+  root "payslips#index"
   devise_for :users
   resources :users
   resources :salaries
@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root "admin_settings#index"
     resources :admin_settings
+    resources :columns
+    resources :formulas
   end
 end

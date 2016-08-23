@@ -64,3 +64,14 @@ en:
         save: *save
         saving: *saving
         cancel: *cancel
+    columns:
+      index:
+        new_modal_column: "New column"
+      column:
+        save: *save
+      new_modal:
+        title: "New column"
+      form:
+        save: *save
+        saving: *saving
+        cancel: *cancel
