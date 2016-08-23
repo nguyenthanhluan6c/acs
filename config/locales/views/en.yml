@@ -33,7 +33,7 @@ en:
       number_of_dependence: "Dependence"
       action: *action
     salary:
-      edit: *edit
+      save: *save
   payslips:
     payslips_header:
       sequence: *sequence

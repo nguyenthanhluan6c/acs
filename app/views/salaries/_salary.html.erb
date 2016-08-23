@@ -3,9 +3,13 @@
   <td><%= salary.uid %></td>
   <td><%= salary.name %></td>
   <td><%= salary.category_name %></td>
-  <td><%= salary.base_salary %></td>
-  <td><%= salary.insurance %></td>
-  <td><%= salary.personal_deduction %></td>
-  <td><%= salary.number_of_dependence %></td>
-  <td><%= link_to t(".edit"), edit_salary_path(salary) %></td>
+  <%= form_for salary do |f| %>
+    <td><%= f.text_field :base_salary %></td>
+    <td><%= f.select :insurance, [[true, true], [false, false]], class: "form-control" %></td>
+    <td><%= f.select :personal_deduction, [[true, true], [false, false]], class: "form-control" %></td>
+    <td><%= f.text_field :number_of_dependence %></td>
+    <td>
+      <%= f.submit t(".save"), class: "btn btn-primary" %>
+    </td>
+  <% end %>
 </tr>
