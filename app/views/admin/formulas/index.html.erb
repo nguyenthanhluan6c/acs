@@ -1,0 +1,13 @@
+<div id="action-new-formula">
+  <a role="button" data-toggle="modal" href="javascript:void(0)"
+    data-target="#new-formula-modal" data-backdrop="static">
+    <i class="fa fa-plus"></i>
+    <%= t ".new_modal_formula" %>
+  </a>
+</div>
+<%= render "new_modal", formula: @formula %>
+
+<table id="formulas-list">
+  <thead><%= render "formulas_header" %></thead>
+  <tbody><%= render @formulas %></tbody>
+</table>

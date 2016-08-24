@@ -4,7 +4,7 @@
   <td><%= payslip.employee_name %></td>
   <td><%= payslip.employee_category_name %></td>
 
-  <% payslip.payslip_details.map do |payslip_detail| %>
+  <% payslip.payslip_details.each do |payslip_detail| %>
     <td><%= payslip_detail.caculated_result %></td>
   <% end %>
 

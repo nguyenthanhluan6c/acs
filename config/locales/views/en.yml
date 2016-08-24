@@ -75,3 +75,14 @@ en:
         save: *save
         saving: *saving
         cancel: *cancel
+    formulas:
+      index:
+        new_modal_formula: "New formula"
+      formula:
+        save: *save
+      new_modal:
+        title: "New formula"
+      form:
+        save: *save
+        saving: *saving
+        cancel: *cancel

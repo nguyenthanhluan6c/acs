@@ -1,0 +1,2 @@
+module Admin::FormulasHelper
+end

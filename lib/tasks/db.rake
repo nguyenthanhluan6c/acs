@@ -49,20 +49,23 @@ namespace :db do
         {name: "trans_allowance", display_name: "Trans allowance", table_expression: "benefits.trans_allowance, employee: param", index: "C"},
         {name: "n_allowance", display_name: "Japanese allowance", table_expression: "levels.value, employee: param", index: "D"},
         {name: "base_salary", display_name: "Base salary", table_expression: "employees.base_salary, employee: param", index: "E"},
-        {name: "working_day", display_name: "Working Day", table_expression: "timesheets.working_day, employee: param", index: "F"}
+        {name: "working_day", display_name: "Working Day", table_expression: "timesheets.working_day, employee: param", index: "F"},
+        {name: "personal_deduction", display_name: "Personal Deduction", table_expression: "employees.personal_deduction, employee: param", index: "G"},
       ].each do |column|
         Column.create name: column[:name], display_name: column[:display_name],
         table_expression: column[:table_expression], index: column[:index]
       end
 
       [
-        {name: "home_allowance", display_name: "Home allowance", expression: "A", index: "AA"},
-        {name: "health_allowance", display_name: "Health allowance", expression: "B", index: "AB"},
-        {name: "trans_allowance", display_name: "Trans allowance", expression: "C", index: "AC"},
-        {name: "n_allowance", display_name: "Japanese allowance", expression: "D", index: "AD"},
-        {name: "base_salary", display_name: "Base salary", expression: "E", index: "AE"},
-        {name: "working_day", display_name: "Working Day", expression: "F", index: "AF"},
-        {name: "total", display_name: "Total", expression: "A+B+C+E*F", index: "TT"},
+        {name: "home_allowance", display_name: "Home allowance", expression: "A", index: "FO_A"},
+        {name: "health_allowance", display_name: "Health allowance", expression: "B", index: "FO_B"},
+        {name: "trans_allowance", display_name: "Trans allowance", expression: "C", index: "FO_C"},
+        {name: "n_allowance", display_name: "Japanese allowance", expression: "D", index: "FO_D"},
+        {name: "base_salary", display_name: "Base salary", expression: "E", index: "FO_E"},
+        {name: "working_day", display_name: "Working Day", expression: "F", index: "FO_F"},
+        {name: "total", display_name: "Total", expression: "A+B+C+D+E*F", index: "FO_PD"},
+        {name: "personal_deduction", display_name: "Deduction", expression: "(E*F)*10%", index: "FO_TT"},
+        {name: "final", display_name: "Final", expression: "FO_PD-FO_TT", index: "FO_FN"},
       ].each do |formula|
         Formula.create name: formula[:name], display_name: formula[:display_name],
         expression: formula[:expression], index: formula[:index]

@@ -26,7 +26,7 @@ module ExpressionCheckTypes
     nil
   end
 
-  ["array", "column", "setting", "percent"].each do |type|
+  ["expression_index", "array", "column", "setting", "percent"].each do |type|
     define_method "is_#{type}?" do |string|
       /#{@regexs[type.to_sym]}/ =~ string.to_s
     end

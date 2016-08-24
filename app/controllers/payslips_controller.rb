@@ -7,6 +7,6 @@ class PayslipsController < ApplicationController
     @payslips.each do |payslip|
       payslip.update_cache_to_children
     end
-    @formulas = Formula.all
+    @formulas = Formula.of_payslips @payslips
   end
 end

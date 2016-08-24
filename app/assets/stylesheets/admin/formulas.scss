@@ -1,0 +1,19 @@
+@import "mixin";
+
+#formulas{
+  #action-new-admin-setting{
+    padding: 12px;
+  }
+  #formulas-list{
+    @include table;
+    th{
+      @include th;
+    }
+    td{
+      @include td;
+      input[type=text]{
+        width: 100%;
+      }
+    }
+  }
+}

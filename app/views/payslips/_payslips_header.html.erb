@@ -2,7 +2,7 @@
 <th><%= t ".uid" %></th>
 <th><%= t ".name" %></th>
 <th><%= t ".category" %></th>
-<% formulas.map do |formula| %>
+<% formulas.each do |formula| %>
   <th><%= formula.display_name %></th>
 <% end %>
 <th><%= t ".action" %></th>

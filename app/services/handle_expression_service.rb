@@ -1,6 +1,7 @@
 class HandleExpressionService
   @@count = 0
   @@columns = Column.all
+  @@formulas = Formula.all
 
   def initialize payslip, payslip_details
     @@count += 1
@@ -10,8 +11,10 @@ class HandleExpressionService
     @employee = payslip.employee
     # @payslip_details = payslip_details
     @columns = @@columns
+    @formulas = @@formulas
     @regexs = {
       array: '([A-Z]+\d+|[A-Z]+):([A-Z]+\d+|[A-Z]+)',
+      expression_index: 'FO_\w+',
       column: '[A-Z]+\d+|[A-Z]+',
       replace_column: '([A-Z]+)(\d+)',
       setting: '\$[A-Z]+\$\d+|\$[A-Z]+',
@@ -48,7 +51,7 @@ class HandleExpressionService
     st = SupportExpression::Stack.new
     elements.each do |element|
       if /#{@regexs[:find_operand]}/ =~ element
-        ["method", "setting", "column", "percent"].each do |type|
+        ["expression_index", "method", "setting", "column", "percent"].each do |type|
           if send("is_#{type}?", element)
             element = send "handle_#{type}", element
             break
@@ -83,7 +86,7 @@ class HandleExpressionService
   end
 
   private
-  attr_accessor :payslip, :employee, :columns, :regexs
+  attr_accessor :payslip, :employee, :columns, :formulas, :regexs
   include ExpressionCheckTypes
   include ExpressionHandles
   include SupportExpression

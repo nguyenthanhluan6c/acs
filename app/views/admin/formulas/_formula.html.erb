@@ -1,0 +1,13 @@
+<tr>
+  <%= form_for [:admin, formula] do |f| %>
+    <td class="stt"></td>
+    <td><%= f.text_field :display_name %></td>
+    <td><%= f.text_field :name %></td>
+    <td><%= f.text_field :expression %></td>
+    <td><%= f.text_field :index %></td>
+    <td>
+      <%= f.submit t(".save"), class: "btn btn-primary" %>
+      <%= link_to t(".delete"), [:admin, formula], method: :delete, class: "btn btn-danger" %>
+    </td>
+  <% end %>
+</tr>

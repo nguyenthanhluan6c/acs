@@ -54,6 +54,13 @@ module ExpressionHandles
     value_of table_expression
   end
 
+  def handle_expression_index expression_index
+    expression = formulas.detect do |formula_record|
+      formula_record.index == expression_index
+    end.expression
+    calc_expression expression
+  end
+
   def handle_percent percent
     percent.gsub /#{@regexs[:percent]}/ do |pc|
       pc.gsub(/#{@regexs[:replace_percent]}/, "").to_f / 100
